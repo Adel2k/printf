@@ -1,0 +1,48 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/09 18:55:33 by aeminian          #+#    #+#             */
+/*   Updated: 2024/02/09 18:55:49 by aeminian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libftprintf.h"
+#include "libft.h"
+
+int ft_putchar(int c)
+{
+    write(1, &c, 1);
+    return (1);
+}
+int ft_printf(const char *format, ...)
+{
+    va_list ap;
+    int count;
+
+    va_start(ap, format);
+    count = 0;
+    while (*format)
+    {
+        if (*format == '%')
+        {
+            *++format;
+            if (*format == '%')
+                count += ft_putchar('%');
+            count += ft_parser(ap, *format);
+        }
+        else
+            count += ft_putchar(*format);
+        *++format;
+    }
+    return (count);
+}
+int main ()
+{
+    int n = 5;
+    ft_printf("My printf = %d\n", n);
+    print("org = %d", n);
+}
