@@ -6,7 +6,7 @@
 /*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:55:33 by aeminian          #+#    #+#             */
-/*   Updated: 2024/02/09 23:07:56 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/02/10 18:41:28 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,59 @@ int ft_putchar(int c)
     write(1, &c, 1);
     return (1);
 }
-int	ft_digit(long n)
+
+int	ft_count(long n)
+{
+	int	len;
+
+	len = 0;
+	if (n <= 0)
+		len++;
+	while (n)
+	{
+		len++;
+		n /= 10;
+	}
+	return (len);
+}
+
+int	ft_digit(int n)
 {
 	int	count;
 
-	count = 0;
-	if (n <= 0)
-		count++;
-	while (n)
-	{
-		count++;
-		n /= 10;
-	}
+	count = ft_count(n);
+	if (n == INT_MIN)
+		{
+			ft_putchar('-');
+			ft_putchar('2');
+			n = 147483648;
+		}
 	if (n < 0)
 	{
-		ft_putchar('-');
-		ft_digit(-n);
+		write(1, "-", 1);
+		n *= -1;
 	}
 	if (n >= 10)
 	{
 		ft_digit(n / 10);
-		n = n %  10;
+		n = n % 10;
+	}
+	if (n < 10)
+		ft_putchar(n + 48);
+	return (count);
+}
+
+int	ft_unsigned_int(unsigned int n)
+{
+	int	count;
+
+	count = ft_count(n);
+	if (n == INT_MAX)
+			n = 2147483647;
+	if (n >= 10)
+	{
+		ft_digit(n / 10);
+		n = n % 10;
 	}
 	if (n < 10)
 		ft_putchar(n + 48);
@@ -53,11 +85,13 @@ int	ft_parser(va_list args, const char s)
 	else if (s == 's')
 		count += ft_string(va_arg(args, char *));
 	else if (s == 'd' || s == 'i')
-		count += ft_digit(va_arg(args, long));
-/*	else if (s == 'u' )
-		count += ft_digit(va_arg(args, int), s);
-	else if (s == 'x' || s == 'X')
-		count += ft_digit(va_arg(args, int ), s);*/
+		count += ft_digit(va_arg(args, int));
+	else if (s == 'u' )
+		count += ft_unsigned_int(va_arg(args, unsigned int));
+	else if (s == 'x')
+		count += ft_lowhex(va_arg(args, int));
+	else if (s == 'X')
+		count += ft_uphex(va_arg(args, int));
 	return (count);
 }
 
@@ -85,9 +119,10 @@ int ft_printf(const char *format, ...)
 	va_end(ap);
     return (count);
 }
-/*int main ()
+/*
+int main ()
 {
-    int n = 5;
-    ft_printf("My printf = %d\n", n);
-    print("org = %d", n);
+	long i = -123456;
+    printf("%d\n",ft_digit(i));
+	printf("%d\n", printf("%ld", i));
 }*/
