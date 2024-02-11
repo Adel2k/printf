@@ -6,7 +6,7 @@
 /*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:55:33 by aeminian          #+#    #+#             */
-/*   Updated: 2024/02/10 18:41:28 by aeminian         ###   ########.fr       */
+/*   Updated: 2024/02/11 09:17:15 by adel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,31 @@ int	ft_unsigned_int(unsigned int n)
 		ft_putchar(n + 48);
 	return (count);
 }
+int	ft_hex(int n, const char s)
+{
+	int	count;
+	char	*symbols;
+
+	count = 0;
+	if (s == 'x')
+		symbols = "0123456789abcdef";
+	else if (s == 'X')
+		symbols = "0123456789ABCDEF";
+	if (n < 0)
+	{
+		write(1, "-", 1);
+		return (ft_hex(-n, s) + 1);
+	}
+	else if (n < 16)
+		ft_putchar(symbols[n]);
+	else 
+	{
+		count = ft_hex((n / 16), s);
+		return ( count + ft_hex(n % 16, s));
+	}
+	return (count);
+}
+
 int	ft_parser(va_list args, const char s)
 {
 	int	count;
@@ -89,9 +114,9 @@ int	ft_parser(va_list args, const char s)
 	else if (s == 'u' )
 		count += ft_unsigned_int(va_arg(args, unsigned int));
 	else if (s == 'x')
-		count += ft_lowhex(va_arg(args, int));
+		count += ft_hex(va_arg(args, int), s);
 	else if (s == 'X')
-		count += ft_uphex(va_arg(args, int));
+		count += ft_hex(va_arg(args, int), s);
 	return (count);
 }
 
