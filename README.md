@@ -1,7 +1,7 @@
 # ft_printf
 
 ## Description
-ft_printf is a custom implementation of the printf function in C. It provides functionality to format and print output to the standard output stream or a specified file descriptor. This project is part of the curriculum at [Your Institution/Platform Name].
+ft_printf is a custom implementation of the printf function in C. It provides functionality to format and print output to the standard output stream or a specified file descriptor. This project is part of the curriculum at 42 ecole.
 
 ## Motivation
 The motivation behind creating this project is to deepen understanding of variadic functions, string parsing, and format specifiers in C programming.
@@ -16,6 +16,9 @@ The motivation behind creating this project is to deepen understanding of variad
 1. Clone the repository: git clone https://github.com/Adel2k/printf.git
 2. Navigate to the `ft_printf` directory:
 3. Compile the library:
+
+## Testers
+- https://github.com/Tripouille/printfTester.git
 
 ## Usage
 - To use this library in your projects, include the `ft_printf.h` header file in your source files.
