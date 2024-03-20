@@ -1,42 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_string.c                                        :+:      :+:    :+:   */
+/*   ft_unsigned_int.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 21:15:34 by aeminian          #+#    #+#             */
-/*   Updated: 2024/02/11 15:10:47 by aeminian         ###   ########.fr       */
+/*   Created: 2024/02/11 14:45:50 by aeminian          #+#    #+#             */
+/*   Updated: 2024/02/11 15:11:15 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
-int	ft_strlen(const char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-int	ft_string(const char *str)
+int	ft_unsigned_int(unsigned int n)
 {
 	int	count;
 
-	if (str == NULL)
+	count = ft_count(n);
+	if (n == INT_MAX)
+		n = 2147483647;
+	if (n >= 10)
 	{
-		write(1, "(null)", 6);
-		return (6);
+		ft_digit(n / 10);
+		n = n % 10;
 	}
-	count = ft_strlen(str);
-	while (str && *str)
-	{
-		write(1, str, 1);
-		str++;
-	}
+	if (n < 10)
+		ft_putchar(n + 48);
 	return (count);
 }

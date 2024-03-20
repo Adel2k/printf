@@ -1,42 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_string.c                                        :+:      :+:    :+:   */
+/*   ft_pointer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 21:15:34 by aeminian          #+#    #+#             */
-/*   Updated: 2024/02/11 15:10:47 by aeminian         ###   ########.fr       */
+/*   Created: 2024/02/11 14:47:44 by aeminian          #+#    #+#             */
+/*   Updated: 2024/03/10 19:54:11 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
-int	ft_strlen(const char *str)
+int	ft_pointer(unsigned long long n)
 {
-	int	i;
+	int		count;
+	char	*symbols;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-int	ft_string(const char *str)
-{
-	int	count;
-
-	if (str == NULL)
+	count = 0;
+	symbols = "0123456789abcdef";
+	if (n < 16)
 	{
-		write(1, "(null)", 6);
-		return (6);
+		count++;
+		ft_putchar(symbols[n]);
 	}
-	count = ft_strlen(str);
-	while (str && *str)
+	else
 	{
-		write(1, str, 1);
-		str++;
+		count = ft_pointer(n / 16);
+		return (count + ft_pointer(n % 16));
 	}
 	return (count);
 }

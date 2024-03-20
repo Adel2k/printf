@@ -1,42 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_string.c                                        :+:      :+:    :+:   */
+/*   ft_count.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 21:15:34 by aeminian          #+#    #+#             */
-/*   Updated: 2024/02/11 15:10:47 by aeminian         ###   ########.fr       */
+/*   Created: 2024/02/11 14:44:59 by aeminian          #+#    #+#             */
+/*   Updated: 2024/02/11 14:57:05 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
-int	ft_strlen(const char *str)
+int	ft_count(long n)
 {
-	int	i;
+	int	len;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-int	ft_string(const char *str)
-{
-	int	count;
-
-	if (str == NULL)
+	len = 0;
+	if (n <= 0)
+		len++;
+	while (n)
 	{
-		write(1, "(null)", 6);
-		return (6);
+		len++;
+		n /= 10;
 	}
-	count = ft_strlen(str);
-	while (str && *str)
-	{
-		write(1, str, 1);
-		str++;
-	}
-	return (count);
+	return (len);
 }

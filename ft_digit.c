@@ -1,42 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_string.c                                        :+:      :+:    :+:   */
+/*   ft_digit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aeminian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 21:15:34 by aeminian          #+#    #+#             */
-/*   Updated: 2024/02/11 15:10:47 by aeminian         ###   ########.fr       */
+/*   Created: 2024/02/11 14:41:18 by aeminian          #+#    #+#             */
+/*   Updated: 2024/03/10 19:57:13 by aeminian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
-int	ft_strlen(const char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-int	ft_string(const char *str)
+int	ft_digit(int n)
 {
 	int	count;
 
-	if (str == NULL)
+	count = ft_count(n);
+	if (n == INT_MIN)
 	{
-		write(1, "(null)", 6);
-		return (6);
+		ft_putchar('-');
+		ft_putchar('2');
+		n = 147483648;
 	}
-	count = ft_strlen(str);
-	while (str && *str)
+	if (n < 0)
 	{
-		write(1, str, 1);
-		str++;
+		write(1, "-", 1);
+		n *= -1;
 	}
+	if (n >= 10)
+	{
+		ft_digit(n / 10);
+		n = n % 10;
+	}
+	if (n < 10)
+		ft_putchar(n + 48);
 	return (count);
 }
